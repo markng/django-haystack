@@ -310,6 +310,9 @@ class BaseSearchQuery(object):
         self.__dict__.update(obj_dict)
         
         try:
+            # temporary hack for my own purposes.  Fix this in a better way.
+            if backend_used[0] == '<':
+                backend_used = backend_used[1:]
             loaded_backend = importlib.import_module(backend_used)
         except ImportError:
             raise SearchBackendError("The backend this query was pickled with '%s.SearchBackend' could not be loaded." % backend_used)
